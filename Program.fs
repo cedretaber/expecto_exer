@@ -23,9 +23,9 @@ let tests2 =
       Expect.equal (2+2) 4 "2+2"
     }
 
-    // test "another test that fails" {
-    //   Expect.equal (3+3) 5 "3+3"
-    // }
+    test "another test that fails" {
+      Expect.equal (3+3) 5 "3+3"
+    }
 
     testAsync "this is an async test" {
       let! x = async { return 4 }
@@ -99,16 +99,16 @@ type UserGen() =
            createUser <!> getId <*> genFirsName <*> genLastName
        genUser |> Arb.fromGen
 
-// [<Tests>]
-// let propertyBasedTests2 =
-//   let config = { FsCheckConfig.defaultConfig with arbitrary = [typeof<UserGen>] }
-//   testList "FsCheck samples" [
+[<Tests>]
+let propertyBasedTests2 =
+  let config = { FsCheckConfig.defaultConfig with arbitrary = [typeof<UserGen>] }
+  testList "FsCheck samples" [
     
-//     // you can also override the FsCheck config
-//     testPropertyWithConfig config "User with generated User data" <|
-//       fun x ->
-//         Expect.isNotNull x.FirstName "First Name should not be null"
-//   ]
+    // you can also override the FsCheck config
+    testPropertyWithConfig config "User with generated User data" <|
+      fun x ->
+        Expect.isNotNull x.FirstName "First Name should not be null"
+  ]
 
 [<EntryPoint>]
 let main args =
